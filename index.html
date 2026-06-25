@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Selva Vinayagam — Video Editor & Cinematic Storyteller</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --mint:     #A5E9DD;
+  --yellow:   #FDF4AF;
+  --teal:     #34908B;
+  --teal-dim: #256560;
+  --teal-deep:#1A4D4A;
+  --dark:     #0B1A19;
+  --surface:  #0F2220;
+  --surface2: #162E2B;
+  --surface3: #1D3835;
+  --text:     #E8F7F5;
+  --muted:    #7ABDB7;
+  --border:   rgba(165,233,221,0.15);
+  --border2:  rgba(165,233,221,0.25);
+  --ff-display: 'Playfair Display', serif;
+  --ff-body:    'DM Sans', sans-serif;
+}
+html { scroll-behavior: smooth; }
+body { background: var(--dark); color: var(--text); font-family: var(--ff-body); font-size: 16px; line-height: 1.7; overflow-x: hidden; }
+
+/* SCROLL LINE */
+.scroll-line { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, var(--teal), var(--mint)); z-index: 200; width: 0%; transition: width 0.1s linear; }
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 6vw;
+  background: rgba(11,26,25,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo { font-family: var(--ff-display); font-size: 18px; color: var(--mint); letter-spacing: 0.04em; text-decoration: none; font-weight: 700; }
+.nav-links { display: flex; gap: 28px; list-style: none; }
+.nav-links a { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+.nav-links a:hover { color: var(--mint); }
+
+section { padding: 100px 6vw; }
+
+/* SHARED */
+.section-label { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal); margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+.section-label::before { content: ''; width: 24px; height: 1px; background: var(--teal); }
+.section-title { font-family: var(--ff-display); font-size: clamp(28px, 4vw, 52px); font-weight: 700; line-height: 1.1; color: var(--yellow); margin-bottom: 16px; }
+.section-subtitle { font-size: 16px; color: var(--muted); max-width: 520px; line-height: 1.8; }
+.divider { width: 48px; height: 3px; background: linear-gradient(90deg, var(--teal), var(--mint)); margin: 20px 0 50px; border-radius: 2px; }
+
+/* BUTTONS */
+.btn-primary { background: var(--teal); color: var(--dark); padding: 14px 32px; font-size: 14px; font-weight: 500; border: none; cursor: pointer; letter-spacing: 0.04em; text-decoration: none; display: inline-block; transition: background 0.2s, transform 0.15s; font-family: var(--ff-body); border-radius: 6px; }
+.btn-primary:hover { background: var(--mint); transform: translateY(-2px); }
+.btn-outline { background: transparent; color: var(--mint); padding: 13px 32px; font-size: 14px; border: 1px solid var(--border2); cursor: pointer; letter-spacing: 0.04em; text-decoration: none; display: inline-block; transition: border-color 0.2s, background 0.2s, transform 0.15s; font-family: var(--ff-body); border-radius: 6px; }
+.btn-outline:hover { border-color: var(--mint); background: rgba(165,233,221,0.07); transform: translateY(-2px); }
+
+/* ─── HERO ─── */
+#hero { min-height: 100vh; display: flex; align-items: center; position: relative; overflow: hidden; padding-top: 140px; }
+.hero-bg {
+  position: absolute; inset: 0; z-index: 0;
+  background:
+    radial-gradient(ellipse 55% 60% at 75% 35%, rgba(52,144,139,0.18) 0%, transparent 65%),
+    radial-gradient(ellipse 40% 50% at 15% 75%, rgba(165,233,221,0.06) 0%, transparent 65%),
+    radial-gradient(ellipse 30% 30% at 50% 10%, rgba(253,244,175,0.04) 0%, transparent 60%);
+}
+.hero-grid-lines {
+  position: absolute; inset: 0; z-index: 0; opacity: 0.04;
+  background-image: linear-gradient(var(--mint) 1px, transparent 1px), linear-gradient(90deg, var(--mint) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+.hero-content { position: relative; z-index: 1; max-width: 700px; }
+.hero-tag { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mint); border: 1px solid var(--border2); padding: 7px 18px; border-radius: 100px; margin-bottom: 32px; background: rgba(165,233,221,0.06); }
+.hero-tag::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--mint); animation: blink 2s infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+.hero-name { font-family: var(--ff-display); font-size: clamp(48px, 8vw, 96px); font-weight: 900; line-height: 0.95; color: var(--text); margin-bottom: 12px; letter-spacing: -0.02em; }
+.hero-name span { color: var(--yellow); display: block; }
+.hero-role { font-family: var(--ff-display); font-size: clamp(15px, 2vw, 20px); font-weight: 400; color: var(--muted); font-style: italic; margin-bottom: 24px; }
+.hero-desc { font-size: 16px; color: var(--muted); max-width: 460px; line-height: 1.8; margin-bottom: 44px; }
+.hero-ctas { display: flex; gap: 16px; flex-wrap: wrap; }
+.hero-stats { position: absolute; bottom: 60px; right: 6vw; display: flex; gap: 40px; z-index: 1; }
+.stat-num { font-family: var(--ff-display); font-size: 34px; font-weight: 700; color: var(--mint); display: block; line-height: 1; }
+.stat-label { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-top: 4px; display: block; }
+
+/* ─── ABOUT ─── */
+#about { background: var(--surface); }
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.about-visual { position: relative; aspect-ratio: 4/5; background: var(--surface2); border: 1px solid var(--border); border-radius: 12px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.about-visual::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 30%, rgba(52,144,139,0.15), transparent 70%); }
+.about-visual-inner { width: 88px; height: 88px; border: 2px solid var(--teal); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-family: var(--ff-display); font-size: 34px; font-weight: 700; color: var(--mint); background: rgba(52,144,139,0.1); }
+.about-visual-label { position: absolute; bottom: 20px; left: 20px; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+.about-corner { position: absolute; width: 20px; height: 20px; border-color: var(--teal); border-style: solid; border-width: 0; }
+.about-corner.tl { top: 14px; left: 14px; border-top-width: 2px; border-left-width: 2px; }
+.about-corner.br { bottom: 14px; right: 14px; border-bottom-width: 2px; border-right-width: 2px; }
+.about-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+.tag { font-size: 12px; letter-spacing: 0.04em; border: 1px solid var(--border); color: var(--muted); padding: 6px 14px; border-radius: 6px; background: rgba(165,233,221,0.04); transition: border-color 0.2s, color 0.2s; }
+.tag:hover { border-color: var(--teal); color: var(--mint); }
+
+/* ─── SKILLS ─── */
+#skills { background: var(--dark); }
+.skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+.skill-card { background: var(--surface); padding: 32px 28px; transition: background 0.25s; }
+.skill-card:hover { background: var(--surface2); }
+.skill-icon { font-size: 20px; margin-bottom: 18px; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; border-radius: 10px; background: rgba(52,144,139,0.15); color: var(--mint); border: 1px solid rgba(52,144,139,0.3); }
+.skill-name { font-family: var(--ff-display); font-size: 18px; font-weight: 700; color: var(--yellow); margin-bottom: 8px; }
+.skill-desc { font-size: 14px; color: var(--muted); line-height: 1.7; }
+.skill-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.skill-tag { font-size: 11px; letter-spacing: 0.04em; background: rgba(52,144,139,0.12); color: var(--teal); padding: 4px 10px; border-radius: 100px; border: 1px solid rgba(52,144,139,0.2); }
+
+/* ─── TOOLS ─── */
+#tools { background: var(--surface); }
+.category-block { margin-bottom: 44px; }
+.category-label-row { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--teal); margin-bottom: 18px; display: flex; align-items: center; gap: 12px; }
+.category-label-row::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+.tools-row { display: flex; flex-wrap: wrap; gap: 10px; }
+.tool-pill { display: flex; align-items: center; gap: 10px; background: var(--surface2); border: 1px solid var(--border); padding: 10px 16px; border-radius: 10px; transition: border-color 0.22s, background 0.22s; cursor: default; }
+.tool-pill:hover { border-color: var(--teal); background: rgba(52,144,139,0.08); }
+.tool-icon { width: 28px; height: 28px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; border-radius: 6px; overflow: hidden; }
+.tool-icon svg { width: 20px; height: 20px; display: block; }
+.tool-name { font-size: 13px; font-weight: 500; color: var(--text); white-space: nowrap; }
+.tool-sub { font-size: 11px; color: var(--muted); white-space: nowrap; margin-top: 1px; }
+
+/* ─── PORTFOLIO ─── */
+#portfolio { background: var(--dark); overflow: hidden; }
+.filter-tabs { display: flex; gap: 8px; margin-bottom: 56px; flex-wrap: wrap; }
+.filter-btn { font-size: 13px; letter-spacing: 0.04em; padding: 8px 20px; border: 1px solid var(--border); background: transparent; color: var(--muted); cursor: pointer; font-family: var(--ff-body); transition: all 0.2s; border-radius: 100px; }
+.filter-btn:hover { border-color: var(--teal); color: var(--mint); }
+.filter-btn.active { background: var(--teal); color: var(--dark); border-color: var(--teal); font-weight: 500; }
+.video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 32px; align-items: start; }
+.video-card { cursor: pointer; text-decoration: none; display: block; color: inherit; }
+.video-card.hidden { display: none; }
+.phone-frame {
+  position: relative; width: 100%; aspect-ratio: 9/16;
+  border-radius: 28px; overflow: hidden;
+  border: 2px solid rgba(165,233,221,0.15);
+  box-shadow: 0 0 0 1px rgba(52,144,139,0.3), 0 0 30px rgba(52,144,139,0.1);
+  background: #090f0f;
+  transition: box-shadow 0.3s, transform 0.3s;
+}
+.video-card:hover .phone-frame {
+  box-shadow: 0 0 0 1px var(--mint), 0 0 40px rgba(165,233,221,0.15);
+  transform: translateY(-6px);
+}
+.phone-notch { position: absolute; top: 10px; left: 50%; transform: translateX(-50%); width: 60px; height: 6px; background: rgba(0,0,0,0.8); border-radius: 3px; z-index: 10; }
+
+/* RECONSTRUCTED BASE IMAGE THUMBNAIL */
+.phone-video { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; }
+.phone-video img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.phone-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(11,26,25,0.9) 20%, rgba(11,26,25,0.2) 70%, transparent 100%); z-index: 5; display: flex; flex-direction: column; justify-content: flex-end; padding: 20px 16px; transition: opacity 0.3s, background 0.3s; }
+.video-card:hover .phone-overlay { background: linear-gradient(to top, rgba(11,26,25,0.4) 0%, rgba(11,26,25,0.1) 100%); }
+
+.sound-icon { position: absolute; top: 14px; right: 14px; width: 36px; height: 36px; border-radius: 50%; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; z-index: 6; transition: transform 0.3s; }
+.video-card:hover .sound-icon { transform: scale(1.1); background: var(--teal); }
+.sound-icon svg { width: 16px; height: 16px; fill: var(--mint); }
+.video-card:hover .sound-icon svg { fill: var(--dark); }
+
+.overlay-caption { font-size: 17px; font-weight: 700; color: white; line-height: 1.2; text-shadow: 0 2px 8px rgba(0,0,0,0.8); font-family: var(--ff-display); }
+.overlay-tag { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mint); margin-bottom: 8px; display: block; }
+.video-info { padding: 14px 4px 0; }
+.video-title { font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 4px; line-height: 1.4; }
+.video-meta { font-size: 12px; color: var(--muted); }
+
+/* ─── POSTER & THUMBNAIL SECTIONS ─── */
+#posters { background: var(--surface); }
+#thumbnails { background: var(--dark); }
+.design-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.design-card { position: relative; overflow: hidden; border: 1px solid var(--border); border-radius: 10px; cursor: pointer; transition: border-color 0.25s, transform 0.25s; background: var(--surface2); }
+.design-card:hover { border-color: var(--mint); transform: translateY(-4px); }
+.design-card img { width: 100%; display: block; object-fit: cover; transition: transform 0.4s; }
+.design-card:hover img { transform: scale(1.05); }
+#posters .design-card { aspect-ratio: 3/4; }
+#posters .design-card img { height: 100%; }
+#thumbnails .design-card { aspect-ratio: 16/9; }
+#thumbnails .design-card img { height: 100%; }
+.design-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(11,26,25,0.85) 0%, transparent 50%); opacity: 0; transition: opacity 0.3s; display: flex; flex-direction: column; justify-content: flex-end; padding: 16px; border-radius: 10px; }
+.design-card:hover .design-overlay { opacity: 1; }
+.design-overlay-label { font-size: 13px; font-weight: 500; color: #fff; margin-bottom: 2px; }
+.design-overlay-sub { font-size: 11px; color: var(--mint); letter-spacing: 0.06em; text-transform: uppercase; }
+.design-zoom { position: absolute; top: 12px; right: 12px; width: 32px; height: 32px; border-radius: 50%; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s; }
+.design-card:hover .design-zoom { opacity: 1; }
+.design-zoom svg { width: 14px; height: 14px; fill: var(--mint); }
+.design-placeholder { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; }
+.design-placeholder-icon { width: 44px; height: 44px; border: 1px solid var(--border); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--teal); font-size: 18px; }
+.design-placeholder-text { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+
+/* ─── LIGHTBOX ─── */
+.lightbox { position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,0.93); backdrop-filter: blur(10px); display: none; align-items: center; justify-content: center; }
+.lightbox.open { display: flex; }
+.lightbox-inner { position: relative; max-width: 90vw; max-height: 90vh; }
+.lightbox-inner img { max-width: 90vw; max-height: 85vh; object-fit: contain; display: block; border: 1px solid var(--border); border-radius: 8px; }
+.lightbox-close { position: absolute; top: -44px; right: 0; width: 36px; height: 36px; border-radius: 50%; background: rgba(165,233,221,0.1); border: 1px solid var(--border2); color: var(--mint); font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+.lightbox-close:hover { background: rgba(165,233,221,0.2); }
+.lightbox-caption { text-align: center; margin-top: 14px; font-size: 13px; color: var(--muted); }
+.lightbox-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; border-radius: 50%; background: rgba(165,233,221,0.1); border: 1px solid var(--border2); color: var(--mint); font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+.lightbox-nav:hover { background: rgba(52,144,139,0.3); border-color: var(--teal); }
+.lightbox-prev { right: calc(100% + 16px); }
+.lightbox-next { left: calc(100% + 16px); }
+
+/* ─── SERVICES ─── */
+#services { background: var(--surface); }
+.services-note { font-size: 13px; color: var(--muted); margin-top: 10px; font-style: italic; margin-bottom: 48px; }
+.services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+.service-card { background: var(--dark); padding: 32px 26px; transition: background 0.25s; position: relative; }
+.service-card:hover { background: var(--surface2); }
+.service-card.featured { background: linear-gradient(135deg, var(--teal-deep), var(--surface2)); }
+.featured-badge { position: absolute; top: -1px; right: 20px; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; background: var(--mint); color: var(--dark); padding: 4px 12px; border-radius: 0 0 6px 6px; font-weight: 600; }
+.service-format { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--teal); margin-bottom: 8px; }
+.service-name { font-family: var(--ff-display); font-size: 18px; font-weight: 700; color: var(--yellow); margin-bottom: 4px; line-height: 1.3; }
+.service-features { list-style: none; }
+.service-features li { font-size: 13px; color: var(--muted); padding: 8px 0; border-bottom: 1px solid rgba(165,233,221,0.07); display: flex; align-items: flex-start; gap: 10px; line-height: 1.5; }
+.service-features li::before { content: "—"; color: var(--teal); flex-shrink: 0; margin-top: 1px; }
+.caption-badge { display: inline-block; margin-top: 16px; font-size: 11px; letter-spacing: 0.06em; background: rgba(52,144,139,0.15); color: var(--mint); border: 1px solid rgba(52,144,139,0.3); padding: 5px 12px; border-radius: 6px; }
+
+/* DUAL CURRENCY STYLING */
+.price-container { margin: 18px 0 2px; }
+.service-price { margin: 0 !important; display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px; font-family: var(--ff-display); font-size: 38px; font-weight: 900; color: var(--mint); line-height: 1; }
+.service-price sup { font-size: 16px; vertical-align: super;}
+.currency-sep { font-size: 20px; color: var(--muted); opacity: 0.5; font-weight: 300; }
+.usd-price { color: var(--yellow); }
+.usd-price sup { font-size: 16px; vertical-align: super; }
+.service-period { font-size: 13px; color: var(--muted); margin-bottom: 22px; }
+
+/* ─── TESTIMONIALS ─── */
+#testimonials { background: var(--dark); }
+.testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+.testi-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 32px 28px; transition: border-color 0.25s; }
+.testi-card:hover { border-color: var(--teal); }
+.testi-quote { font-family: var(--ff-display); font-size: 56px; line-height: 0.5; color: rgba(52,144,139,0.3); margin-bottom: 20px; display: block; }
+.testi-text { font-size: 15px; color: var(--text); font-style: italic; line-height: 1.8; margin-bottom: 24px; }
+.testi-author { display: flex; align-items: center; gap: 12px; }
+.testi-avatar { width: 40px; height: 40px; border-radius: 50%; background: rgba(52,144,139,0.15); border: 1px solid var(--teal); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 500; color: var(--mint); font-family: var(--ff-display); }
+.testi-name { font-size: 14px; font-weight: 500; color: var(--text); }
+.testi-role { font-size: 12px; color: var(--muted); }
+
+/* ─── CONTACT ─── */
+#contact { background: var(--surface); }
+.contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 80px; align-items: start; }
+.contact-item { display: flex; gap: 16px; align-items: flex-start; margin-bottom: 28px; }
+.contact-item a { color: var(--text); text-decoration: none; transition: color 0.2s; }
+.contact-item a:hover { color: var(--mint); }
+.contact-icon { width: 40px; height: 40px; flex-shrink: 0; border: 1px solid var(--border); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: var(--mint); font-weight: 600; background: rgba(52,144,139,0.08); }
+.contact-detail-label { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 2px; }
+.contact-detail-value { font-size: 15px; color: var(--text); }
+.contact-form { display: flex; flex-direction: column; gap: 16px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-label { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.form-input, .form-textarea { background: var(--surface2); border: 1px solid var(--border); color: var(--text); font-family: var(--ff-body); font-size: 14px; padding: 12px 16px; outline: none; transition: border-color 0.2s; resize: none; border-radius: 8px; }
+.form-input:focus, .form-textarea:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(52,144,139,0.1); }
+.form-input::placeholder, .form-textarea::placeholder { color: var(--muted); opacity: 0.6; }
+.form-textarea { min-height: 120px; }
+.form-submit { background: var(--teal); color: var(--dark); border: none; padding: 14px 32px; font-family: var(--ff-body); font-size: 14px; font-weight: 500; letter-spacing: 0.06em; cursor: pointer; align-self: flex-start; transition: background 0.2s, transform 0.15s; border-radius: 8px; }
+.form-submit:hover { background: var(--mint); transform: translateY(-2px); }
+
+/* FOOTER */
+footer { background: var(--dark); padding: 40px 6vw; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border); }
+.footer-logo { font-family: var(--ff-display); font-size: 16px; color: var(--mint); font-weight: 700; }
+.footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+.footer-links a { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: var(--mint); }
+.footer-copy { font-size: 12px; color: var(--muted); }
+
+/* ─── CARTOON SKILLS MARQUEE ─── */
+#skills-banner {
+  background: var(--yellow);
+  padding: 0;
+  overflow: hidden;
+  border-top: 3px solid var(--teal-deep);
+  border-bottom: 3px solid var(--teal-deep);
+  position: relative;
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 38s linear infinite;
+}
+.marquee-track:hover { animation-play-state: paused; }
+@keyframes marquee-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.marquee-row { display: flex; align-items: center; gap: 0; }
+
+.skill-chip {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 16px 28px;
+  border-right: 2px solid rgba(26,77,74,0.18);
+  white-space: nowrap;
+  cursor: default;
+  transition: background 0.18s;
+  position: relative;
+}
+.skill-chip:hover { background: rgba(52,144,139,0.12); }
+
+.chip-emoji {
+  font-size: 22px;
+  line-height: 1;
+  display: flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px;
+  background: var(--dark);
+  border-radius: 8px;
+  border: 2px solid var(--teal);
+  flex-shrink: 0;
+  box-shadow: 3px 3px 0 var(--teal-deep);
+}
+.chip-svg {
+  display: flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px;
+  background: var(--dark);
+  border-radius: 8px;
+  border: 2px solid var(--teal);
+  flex-shrink: 0;
+  box-shadow: 3px 3px 0 var(--teal-deep);
+  overflow: hidden;
+}
+.chip-svg svg { width: 22px; height: 22px; display: block; }
+
+.chip-label {
+  font-family: var(--ff-body);
+  font-size: 13px; font-weight: 600;
+  color: var(--dark);
+  letter-spacing: 0.01em;
+}
+.chip-sub {
+  font-size: 10px; color: var(--teal-deep);
+  font-weight: 500; letter-spacing: 0.04em;
+  text-transform: uppercase; margin-top: 1px;
+}
+
+.marquee-sep {
+  display: inline-flex; align-items: center;
+  padding: 0 20px;
+  font-size: 20px;
+  color: var(--teal-deep);
+  border-right: 2px solid rgba(26,77,74,0.18);
+  opacity: 0.5;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .about-grid, .contact-grid { grid-template-columns: 1fr; }
+  .about-visual { display: none; }
+  .hero-stats { position: static; margin-top: 60px; display: flex; gap: 28px; }
+  section { padding: 70px 4vw; }
+  nav { padding: 16px 4vw; }
+  .nav-links { gap: 16px; }
+  .nav-links a { font-size: 11px; }
+  footer { flex-direction: column; gap: 20px; text-align: center; }
+  .form-row { grid-template-columns: 1fr; }
+  .video-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 20px; }
+  .design-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .lightbox-prev, .lightbox-next { display: none; }
+}
+@media (max-width: 600px) {
+  .hero-ctas { flex-direction: column; }
+  .services-grid { grid-template-columns: 1fr; background: none; border: none; gap: 12px; }
+  .service-card { border-radius: 12px; border: 1px solid var(--border); }
+  .nav-links { display: none; }
+  .video-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .design-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .skills-grid { background: none; border: none; gap: 10px; }
+  .skill-card { border-radius: 12px; border: 1px solid var(--border); }
+}
+</style>
+</head>
+<body>
+
+<div class="scroll-line" id="scrollLine"></div>
+
+<nav>
+  <a href="#hero" class="nav-logo">SV</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#tools">Tools</a></li>
+    <li><a href="#portfolio">Work</a></li>
+    <!-- <li><a href="#posters">Posters</a></li> -->
+    <li><a href="#thumbnails">Thumbnails</a></li>
+    <li><a href="#services">Pricing</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid-lines"></div>
+  <div class="hero-content">
+    <span class="hero-tag">Available for Freelance Work</span>
+    <h1 class="hero-name">Selva<br><span>Vinayagam</span></h1>
+    <p class="hero-role">Video Editor · Cinematic Storyteller</p>
+    <p class="hero-desc">Crafting cinematic Reels and long-form YouTube edits that hold attention and build audiences — with storytelling at the core of every cut.</p>
+    <div class="hero-ctas">
+      <a href="#portfolio" class="btn-primary">View My Work</a>
+      <a href="#contact" class="btn-outline">Get in Touch</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-item"><span class="stat-num">3+</span><span class="stat-label">Years Exp.</span></div>
+    <div class="stat-item"><span class="stat-num">50+</span><span class="stat-label">Videos Edited</span></div>
+    <div class="stat-item"><span class="stat-num">2</span><span class="stat-label">Formats</span></div>
+  </div>
+</section>
+
+<div id="skills-banner" aria-label="Skills and tools">
+  <div class="marquee-track" id="marqueeTrack">
+    <div class="marquee-row">
+      <div class="skill-chip">
+        <div class="chip-emoji">🎬</div>
+        <div><p class="chip-label">Premiere Pro</p><p class="chip-sub">Video Editing</p></div>
+      </div>
+      <div class="skill-chip">
+        <div class="chip-emoji">✨</div>
+        <div><p class="chip-label">After Effects</p><p class="chip-sub">Motion Graphics</p></div>
+      </div>
+      <div class="skill-chip">
+        <div class="chip-emoji">✂️</div>
+        <div><p class="chip-label">CapCut</p><p class="chip-sub">Reels & Shorts</p></div>
+      </div>
+      <div class="skill-chip">
+        <div class="chip-svg"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="4" fill="#31A8FF"/><text x="12" y="16" text-anchor="middle" font-size="10" font-weight="700" fill="white" font-family="sans-serif">Ps</text></svg></div>
+        <div><p class="chip-label">Photoshop</p><p class="chip-sub">Thumbnails</p></div>
+      </div>
+      <div class="skill-chip">
+        <div class="chip-emoji">📖</div>
+        <div><p class="chip-label">Storytelling</p><p class="chip-sub">Narrative Arc</p></div>
+      </div>
+      <div class="skill-chip">
+        <div class="chip-emoji">🔤</div>
+        <div><p class="chip-label">Captions</p><p class="chip-sub">English + Tanglish</p></div>
+      </div>
+      <div class="skill-chip">
+        <div class="chip-svg"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="4" fill="#FF7A59"/><text x="12" y="16" text-anchor="middle" font-size="9" font-weight="700" fill="white" font-family="sans-serif">HS</text></svg></div>
+        <div><p class="chip-label">HubSpot</p><p class="chip-sub">CRM & Automation</p></div>
+      </div>
+      <div class="skill-chip">
+        <div class="chip-svg"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="4" fill="#5C4FE5"/><text x="12" y="16" text-anchor="middle" font-size="8" font-weight="700" fill="white" font-family="sans-serif">MKT</text></svg></div>
+        <div><p class="chip-label">Marketo</p><p class="chip-sub">B2B Marketing</p></div>
+      </div>
+      <div class="skill-chip">
+        <div class="chip-emoji">📧</div>
+        <div><p class="chip-label">Email Marketing</p><p class="chip-sub">Brevo / AWS SES</p></div>
+      </div>
+      <div class="skill-chip">
+        <div class="chip-emoji">🔒</div>
+        <div><p class="chip-label">DNS / DMARC</p><p class="chip-sub">Email Infra</p></div>
+      </div>
+      <div class="skill-chip">
+        <div class="chip-svg"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="4" fill="#4285F4"/><text x="12" y="16" text-anchor="middle" font-size="9" font-weight="700" fill="white" font-family="sans-serif">G</text></svg></div>
+        <div><p class="chip-label">Google Ads</p><p class="chip-sub">Paid Search</p></div>
+      </div>
+      <div class="skill-chip">
+        <div class="chip-svg"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="4" fill="#1877F2"/><text x="12" y="16" text-anchor="middle" font-size="9" font-weight="700" fill="white" font-family="sans-serif">f</text></svg></div>
+        <div><p class="chip-label">Meta Ads</p><p class="chip-sub">FB & Instagram</p></div>
+      </div>
+      <div class="skill-chip">
+        <div class="chip-svg"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="4" fill="#E37400"/><text x="12" y="16" text-anchor="middle" font-size="9" font-weight="700" fill="white" font-family="sans-serif">GA4</text></svg></div>
+        <div><p class="chip-label">Google Analytics</p><p class="chip-sub">Tracking & Reports</p></div>
+      </div>
+      <div class="skill-chip">
+        <div class="chip-emoji">💻</div>
+        <div><p class="chip-label">HTML & CSS</p><p class="chip-sub">Email Templates</p></div>
+      </div>
+      <div class="skill-chip">
+        <div class="chip-svg"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="4" fill="#CC785C"/><text x="12" y="16" text-anchor="middle" font-size="9" font-weight="700" fill="white" font-family="sans-serif">Cl</text></svg></div>
+        <div><p class="chip-label">Claude AI</p><p class="chip-sub">Content & Automation</p></div>
+      </div>
+      <div class="skill-chip">
+        <div class="chip-svg"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="4" fill="#10A37F"/><text x="12" y="16" text-anchor="middle" font-size="8" font-weight="700" fill="white" font-family="sans-serif">GPT</text></svg></div>
+        <div><p class="chip-label">ChatGPT</p><p class="chip-sub">Scripts & Research</p></div>
+      </div>
+      <div class="skill-chip">
+        <div class="chip-emoji">🎵</div>
+        <div><p class="chip-label">Sound Design</p><p class="chip-sub">Music Sync & SFX</p></div>
+      </div>
+      <div class="skill-chip">
+        <div class="chip-emoji">📐</div>
+        <div><p class="chip-label">Content Writing</p><p class="chip-sub">Hooks & Scripts</p></div>
+      </div>
+      <div class="skill-chip">
+        <div class="chip-emoji">📊</div>
+        <div><p class="chip-label">UTM Tracking</p><p class="chip-sub">Attribution</p></div>
+      </div>
+      <div class="skill-chip">
+        <div class="chip-emoji">🖼️</div>
+        <div><p class="chip-label">Poster Design</p><p class="chip-sub">Social Creatives</p></div>
+      </div>
+      <div class="marquee-sep">✦</div>
+    </div>
+    <div class="marquee-row" aria-hidden="true">
+      <div class="skill-chip">
+        <div class="chip-emoji">🎬</div>
+        <div><p class="chip-label">Premiere Pro</p><p class="chip-sub">Video Editing</p></div>
+      </div>
+      <div class="skill-chip">
+        <div class="chip-emoji">✨</div>
+        <div><p class="chip-label">After Effects</p><p class="chip-sub">Motion Graphics</p></div>
+      </div>
+      <div class="skill-chip">
+        <div class="chip-emoji">✂️</div>
+        <div><p class="chip-label">CapCut</p><p class="chip-sub">Reels & Shorts</p></div>
+      </div>
+      <div class="skill-chip">
+        <div class="chip-svg"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="4" fill="#31A8FF"/><text x="12" y="16" text-anchor="middle" font-size="10" font-weight="700" fill="white" font-family="sans-serif">Ps</text></svg></div>
+        <div><p class="chip-label">Photoshop</p><p class="chip-sub">Thumbnails</p></div>
+      </div>
+      <div class="skill-chip">
+        <div class="chip-emoji">📖</div>
+        <div><p class="chip-label">Storytelling</p><p class="chip-sub">Narrative Arc</p></div>
+      </div>
+      <div class="skill-chip">
+        <div class="chip-emoji">🔤</div>
+        <div><p class="chip-label">Captions</p><p class="chip-sub">English + Tanglish</p></div>
+      </div>
+      <div class="skill-chip">
+        <div class="chip-svg"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="4" fill="#FF7A59"/><text x="12" y="16" text-anchor="middle" font-size="9" font-weight="700" fill="white" font-family="sans-serif">HS</text></svg></div>
+        <div><p class="chip-label">HubSpot</p><p class="chip-sub">CRM & Automation</p></div>
+      </div>
+      <div class="skill-chip">
+        <div class="chip-svg"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="4" fill="#5C4FE5"/><text x="12" y="16" text-anchor="middle" font-size="8" font-weight="700" fill="white" font-family="sans-serif">MKT</text></svg></div>
+        <div><p class="chip-label">Marketo</p><p class="chip-sub">B2B Marketing</p></div>
+      </div>
+      <div class="skill-chip">
+        <div class="chip-emoji">📧</div>
+        <div><p class="chip-label">Email Marketing</p><p class="chip-sub">Brevo / AWS SES</p></div>
+      </div>
+      <div class="skill-chip">
+        <div class="chip-emoji">🔒</div>
+        <div><p class="chip-label">DNS / DMARC</p><p class="chip-sub">Email Infra</p></div>
+      </div>
+      <div class="skill-chip">
+        <div class="chip-svg"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="4" fill="#4285F4"/><text x="12" y="16" text-anchor="middle" font-size="9" font-weight="700" fill="white" font-family="sans-serif">G</text></svg></div>
+        <div><p class="chip-label">Google Ads</p><p class="chip-sub">Paid Search</p></div>
+      </div>
+      <div class="skill-chip">
+        <div class="chip-svg"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="4" fill="#1877F2"/><text x="12" y="16" text-anchor="middle" font-size="9" font-weight="700" fill="white" font-family="sans-serif">f</text></svg></div>
+        <div><p class="chip-label">Meta Ads</p><p class="chip-sub">FB & Instagram</p></div>
+      </div>
+      <div class="skill-chip">
+        <div class="chip-svg"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="4" fill="#E37400"/><text x="12" y="16" text-anchor="middle" font-size="9" font-weight="700" fill="white" font-family="sans-serif">GA4</text></svg></div>
+        <div><p class="chip-label">Google Analytics</p><p class="chip-sub">Tracking & Reports</p></div>
+      </div>
+      <div class="skill-chip">
+        <div class="chip-emoji">💻</div>
+        <div><p class="chip-label">HTML & CSS</p><p class="chip-sub">Email Templates</p></div>
+      </div>
+      <div class="skill-chip">
+        <div class="chip-svg"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="4" fill="#CC785C"/><text x="12" y="16" text-anchor="middle" font-size="9" font-weight="700" fill="white" font-family="sans-serif">Cl</text></svg></div>
+        <div><p class="chip-label">Claude AI</p><p class="chip-sub">Content & Automation</p></div>
+      </div>
+      <div class="skill-chip">
+        <div class="chip-svg"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="4" fill="#10A37F"/><text x="12" y="16" text-anchor="middle" font-size="8" font-weight="700" fill="white" font-family="sans-serif">GPT</text></svg></div>
+        <div><p class="chip-label">ChatGPT</p><p class="chip-sub">Scripts & Research</p></div>
+      </div>
+      <div class="skill-chip">
+        <div class="chip-emoji">🎵</div>
+        <div><p class="chip-label">Sound Design</p><p class="chip-sub">Music Sync & SFX</p></div>
+      </div>
+      <div class="skill-chip">
+        <div class="chip-emoji">📐</div>
+        <div><p class="chip-label">Content Writing</p><p class="chip-sub">Hooks & Scripts</p></div>
+      </div>
+      <div class="skill-chip">
+        <div class="chip-emoji">📊</div>
+        <div><p class="chip-label">UTM Tracking</p><p class="chip-sub">Attribution</p></div>
+      </div>
+      <div class="skill-chip">
+        <div class="chip-emoji">🖼️</div>
+        <div><p class="chip-label">Poster Design</p><p class="chip-sub">Social Creatives</p></div>
+      </div>
+      <div class="marquee-sep">✦</div>
+    </div>
+  </div>
+</div>
+
+<section id="about">
+  <div class="about-grid">
+    <div class="about-visual">
+      <div class="about-corner tl"></div>
+      <div class="about-corner br"></div>
+        <img src="C:\Users\StorieswithSelva\Desktop\Selva-Portfolio\google Code\images\Image card.png" 
+             alt="Selva Vinayagam"
+             style="width:100%; height:100%; object-fit:cover; object-position:top; display:block;"
+          />
+      <span class="about-visual-label">Bangalore · Chennai</span>
+    </div>
+    <div class="about-text">
+      <p class="section-label">01 — About Me</p>
+      <h2 class="section-title">I Edit With<br>a Story in Mind</h2>
+      <div class="divider"></div>
+      <p class="section-subtitle">I'm Selva — a video editor and cinematic storyteller behind <em>Stories With Selva</em> on Instagram & YouTube. Every edit I deliver is built around one goal: keeping eyes on the screen.</p>
+      <p class="section-subtitle" style="margin-top:16px;">Whether it's a fast-cut Reel or a long-form YouTube video, I combine visual rhythm, narrative flow, and clean captions (English + Tanglish) to give your content an edge.</p>
+      <div class="about-tags">
+        <span class="tag">Premiere Pro</span><span class="tag">After Effects</span><span class="tag">CapCut</span>
+        <span class="tag">Reels / Shorts</span><span class="tag">YouTube Edits</span><span class="tag">Thumbnails</span>
+        <span class="tag">Storytelling</span><span class="tag">Captions</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <p class="section-label">02 — Expertise</p>
+  <h2 class="section-title">What I Do Best</h2>
+  <div class="divider"></div>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-icon">▶</div>
+      <p class="skill-name">Reels & Shorts Editing</p>
+      <p class="skill-desc">Fast-paced, scroll-stopping short-form edits built for retention. Hook in the first 2 seconds, story throughout.</p>
+      <div class="skill-tags"><span class="skill-tag">CapCut</span><span class="skill-tag">Premiere Pro</span><span class="skill-tag">Transitions</span><span class="skill-tag">Sound Sync</span></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">◈</div>
+      <p class="skill-name">YouTube Long-Form Editing</p>
+      <p class="skill-desc">5–10 min narrative-driven edits that keep viewers watching. Pacing, B-roll, music, and storytelling structure.</p>
+      <div class="skill-tags"><span class="skill-tag">Premiere Pro</span><span class="skill-tag">After Effects</span><span class="skill-tag">B-roll</span><span class="skill-tag">Retention Cuts</span></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">✦</div>
+      <p class="skill-name">Cinematic Storytelling</p>
+      <p class="skill-desc">Every video follows a narrative arc — Identity, Conflict, Reveal, CTA. Not just editing, but story construction.</p>
+      <div class="skill-tags"><span class="skill-tag">Scripts</span><span class="skill-tag">Hooks</span><span class="skill-tag">Narrative Arc</span><span class="skill-tag">Pacing</span></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">Aa</div>
+      <p class="skill-name">Captions & Text Design</p>
+      <p class="skill-desc">Clean, styled captions in English and Tanglish — synced, animated, and designed to match your brand tone.</p>
+      <div class="skill-tags"><span class="skill-tag">English</span><span class="skill-tag">Tanglish</span><span class="skill-tag">Auto-captions</span><span class="skill-tag">Text Overlays</span></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">◎</div>
+      <p class="skill-name">Thumbnails & Visual Design</p>
+      <p class="skill-desc">Click-worthy YouTube thumbnails with clear hierarchy, bold contrast, and face-forward compositions that earn the click.</p>
+      <div class="skill-tags"><span class="skill-tag">Photoshop</span><span class="skill-tag">Canva</span><span class="skill-tag">CTR Design</span><span class="skill-tag">Typography</span></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">⊕</div>
+      <p class="skill-name">Sound Design & Music</p>
+      <p class="skill-desc">Audio layering, background score selection, sound effects, and music syncing that elevate the emotional tone of every edit.</p>
+      <div class="skill-tags"><span class="skill-tag">Music Sync</span><span class="skill-tag">SFX</span><span class="skill-tag">Royalty-Free</span><span class="skill-tag">Audio Mix</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="tools">
+  <p class="section-label">02.5 — Tools & Technologies</p>
+  <h2 class="section-title">The Stack I<br>Work With Daily</h2>
+  <div class="divider"></div>
+  <p class="section-subtitle" style="margin-bottom:48px;">Every tool here is hands-on experience — not just names on a list.</p>
+
+  <div class="category-block">
+    <p class="category-label-row">Video Production</p>
+    <div class="tools-row">
+      <div class="tool-pill"><div class="tool-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="4" fill="#9999FF"/><text x="12" y="16" text-anchor="middle" font-size="10" font-weight="700" fill="white" font-family="sans-serif">Pr</text></svg></div><div><p class="tool-name">Premiere Pro</p><p class="tool-sub">Long-form & Reels editing</p></div></div>
+      <div class="tool-pill"><div class="tool-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="4" fill="#9999FF"/><text x="12" y="16" text-anchor="middle" font-size="10" font-weight="700" fill="#00005B" font-family="sans-serif">Ae</text></svg></div><div><p class="tool-name">After Effects</p><p class="tool-sub">Motion graphics & VFX</p></div></div>
+      <div class="tool-pill"><div class="tool-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="4" fill="#1A1A1A"/><text x="12" y="16" text-anchor="middle" font-size="9" font-weight="700" fill="#00F2EA" font-family="sans-serif">CC</text></svg></div><div><p class="tool-name">CapCut</p><p class="tool-sub">Reels & Shorts</p></div></div>
+      <div class="tool-pill"><div class="tool-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="4" fill="#31A8FF"/><text x="12" y="16" text-anchor="middle" font-size="10" font-weight="700" fill="white" font-family="sans-serif">Ps</text></svg></div><div><p class="tool-name">Photoshop</p><p class="tool-sub">Thumbnails & design</p></div></div>
+    </div>
+  </div>
+
+  <div class="category-block">
+    <p class="category-label-row">Marketing Automation & CRM</p>
+    <div class="tools-row">
+      <div class="tool-pill"><div class="tool-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="4" fill="#FF7A59"/><text x="12" y="16" text-anchor="middle" font-size="9" font-weight="700" fill="white" font-family="sans-serif">HS</text></svg></div><div><p class="tool-name">HubSpot</p><p class="tool-sub">CRM & automation</p></div></div>
+      <div class="tool-pill"><div class="tool-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="4" fill="#5C4FE5"/><text x="12" y="16" text-anchor="middle" font-size="8" font-weight="700" fill="white" font-family="sans-serif">MKT</text></svg></div><div><p class="tool-name">Marketo</p><p class="tool-sub">B2B marketing automation</p></div></div>
+      <div class="tool-pill"><div class="tool-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="4" fill="#0057FF"/><text x="12" y="16" text-anchor="middle" font-size="8" font-weight="700" fill="white" font-family="sans-serif">BRV</text></svg></div><div><p class="tool-name">Brevo</p><p class="tool-sub">Email campaigns</p></div></div>
+    </div>
+  </div>
+
+  <div class="category-block">
+    <p class="category-label-row">Email Infrastructure & DNS</p>
+    <div class="tools-row">
+      <div class="tool-pill"><div class="tool-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="4" fill="#C9A84C"/><text x="12" y="16" text-anchor="middle" font-size="8" font-weight="700" fill="#0D0C0A" font-family="sans-serif">DNS</text></svg></div><div><p class="tool-name">DNS Server</p><p class="tool-sub">SPF / DKIM / DMARC</p></div></div>
+      <div class="tool-pill"><div class="tool-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="4" fill="#1A1A2E"/><text x="12" y="16" text-anchor="middle" font-size="8" font-weight="700" fill="#C9A84C" font-family="sans-serif">IP</text></svg></div><div><p class="tool-name">IP Warming</p><p class="tool-sub">Deliverability setup</p></div></div>
+      <div class="tool-pill"><div class="tool-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="4" fill="#252525"/><text x="12" y="16" text-anchor="middle" font-size="8" font-weight="700" fill="#9A9490" font-family="sans-serif">SEG</text></svg></div><div><p class="tool-name">Segmentation</p><p class="tool-sub">CRM lists & lifecycle</p></div></div>
+    </div>
+  </div>
+
+  <div class="category-block">
+    <p class="category-label-row">Paid Advertising</p>
+    <div class="tools-row">
+      <div class="tool-pill"><div class="tool-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="4" fill="#4285F4"/><text x="12" y="16" text-anchor="middle" font-size="9" font-weight="700" fill="white" font-family="sans-serif">G</text></svg></div><div><p class="tool-name">Google Ads</p><p class="tool-sub">Search & display</p></div></div>
+      <div class="tool-pill"><div class="tool-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="4" fill="#1877F2"/><text x="12" y="16" text-anchor="middle" font-size="9" font-weight="700" fill="white" font-family="sans-serif">f</text></svg></div><div><p class="tool-name">Meta Ads</p><p class="tool-sub">Facebook & Instagram</p></div></div>
+      <div class="tool-pill"><div class="tool-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="4" fill="#E1306C"/><text x="12" y="16" text-anchor="middle" font-size="9" font-weight="700" fill="white" font-family="sans-serif">IG</text></svg></div><div><p class="tool-name">Instagram</p><p class="tool-sub">Reels & organic content</p></div></div>
+    </div>
+  </div>
+
+  <div class="category-block">
+    <p class="category-label-row">Analytics & Tracking</p>
+    <div class="tools-row">
+      <div class="tool-pill"><div class="tool-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="4" fill="#E37400"/><text x="12" y="16" text-anchor="middle" font-size="9" font-weight="700" fill="white" font-family="sans-serif">GA4</text></svg></div><div><p class="tool-name">Google Analytics 4</p><p class="tool-sub">Tracking & reporting</p></div></div>
+      <div class="tool-pill"><div class="tool-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="4" fill="#34A853"/><text x="12" y="16" text-anchor="middle" font-size="8" font-weight="700" fill="white" font-family="sans-serif">UTM</text></svg></div><div><p class="tool-name">UTM Tracking</p><p class="tool-sub">Campaign attribution</p></div></div>
+    </div>
+  </div>
+
+  <div class="category-block">
+    <p class="category-label-row">Code & Web</p>
+    <div class="tools-row">
+      <div class="tool-pill"><div class="tool-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="4" fill="#E34F26"/><text x="12" y="16" text-anchor="middle" font-size="9" font-weight="700" fill="white" font-family="sans-serif">H5</text></svg></div><div><p class="tool-name">HTML</p><p class="tool-sub">Email templates & web</p></div></div>
+      <div class="tool-pill"><div class="tool-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="4" fill="#1572B6"/><text x="12" y="16" text-anchor="middle" font-size="9" font-weight="700" fill="white" font-family="sans-serif">CSS</text></svg></div><div><p class="tool-name">CSS</p><p class="tool-sub">Email & UI styling</p></div></div>
+    </div>
+  </div>
+
+  <div class="category-block" style="margin-bottom:0;">
+    <p class="category-label-row">AI Tools</p>
+    <div class="tools-row">
+      <div class="tool-pill"><div class="tool-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="4" fill="#CC785C"/><text x="12" y="16" text-anchor="middle" font-size="9" font-weight="700" fill="white" font-family="sans-serif">Cl</text></svg></div><div><p class="tool-name">Claude.ai</p><p class="tool-sub">Content & automation</p></div></div>
+      <div class="tool-pill"><div class="tool-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="4" fill="#10A37F"/><text x="12" y="16" text-anchor="middle" font-size="8" font-weight="700" fill="white" font-family="sans-serif">GPT</text></svg></div><div><p class="tool-name">ChatGPT</p><p class="tool-sub">Scripting & research</p></div></div>
+      <div class="tool-pill"><div class="tool-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="4" fill="#252525"/><text x="12" y="16" text-anchor="middle" font-size="8" font-weight="700" fill="#C9A84C" font-family="sans-serif">CW</text></svg></div><div><p class="tool-name">Content Writing</p><p class="tool-sub">Scripts, hooks & copy</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="portfolio">
+  <p class="section-label">03 — Selected Work</p>
+  <h2 class="section-title">Work That<br>Speaks for Itself</h2>
+  <div class="divider"></div>
+
+  <div class="filter-tabs">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="reels">Reels / Shorts</button>
+    <button class="filter-btn" data-filter="youtube">YouTube Videos</button>
+    <button class="filter-btn" data-filter="brand">Personal Brand</button>
+  </div>
+
+  <div class="video-grid" id="videoGrid">
+
+    <a href="https://www.youtube.com/watch?v=ZYAg9ZgzJ3M" target="_blank" rel="noopener" class="video-card" data-cat="brand reels">
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="sound-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+        <div class="phone-video">
+          <img src="https://img.youtube.com/vi/ZYAg9ZgzJ3M/maxresdefault.jpg" alt="Stories With Selva #1" />
+        </div>
+        <div class="phone-overlay">
+          <span class="overlay-tag">Personal Brand</span>
+          <p class="overlay-caption">Stories<br>With Selva</p>
+        </div>
+      </div>
+      <div class="video-info">
+        <p class="video-title">Stories With Selva</p>
+        <p class="video-meta">YouTube Short · Tanglish</p>
+      </div>
+    </a>
+
+    <a href="https://www.youtube.com/watch?v=RT_VqTMRmsQ" target="_blank" rel="noopener" class="video-card" data-cat="brand reels">
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="sound-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+        <div class="phone-video">
+          <img src="https://img.youtube.com/vi/RT_VqTMRmsQ/maxresdefault.jpg" alt="Stories With Selva #2" />
+        </div>
+        <div class="phone-overlay">
+          <span class="overlay-tag">Personal Brand</span>
+          <p class="overlay-caption">Cinematic<br>Story Reel</p>
+        </div>
+      </div>
+      <div class="video-info">
+        <p class="video-title">Stories With Selva</p>
+        <p class="video-meta">YouTube Short · Tanglish</p>
+      </div>
+    </a>
+
+    <a href="https://www.youtube.com/watch?v=mTax11us488" target="_blank" rel="noopener" class="video-card" data-cat="brand reels">
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="sound-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+        <div class="phone-video">
+          <img src="https://img.youtube.com/vi/mTax11us488/maxresdefault.jpg" alt="Stories With Selva #3" />
+        </div>
+        <div class="phone-overlay">
+          <span class="overlay-tag">Personal Brand</span>
+          <p class="overlay-caption">Tamil<br>Story Reel</p>
+        </div>
+      </div>
+      <div class="video-info">
+        <p class="video-title">Stories With Selva</p>
+        <p class="video-meta">YouTube Short · Tanglish</p>
+      </div>
+    </a>
+
+    <a href="https://www.youtube.com/watch?v=TrvCbw8nhBk" target="_blank" rel="noopener" class="video-card" data-cat="reels youtube">
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="sound-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+        <div class="phone-video">
+          <img src="https://img.youtube.com/vi/TrvCbw8nhBk/maxresdefault.jpg" alt="Client Work #1" />
+        </div>
+        <div class="phone-overlay">
+          <span class="overlay-tag">Client Work</span>
+          <p class="overlay-caption">Brand<br>Reel Edit</p>
+        </div>
+      </div>
+      <div class="video-info">
+        <p class="video-title">Client Reel #1</p>
+        <p class="video-meta">YouTube Short · Client</p>
+      </div>
+    </a>
+
+    <a href="https://www.youtube.com/watch?v=WTMtD6mg8vI" target="_blank" rel="noopener" class="video-card" data-cat="reels youtube">
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="sound-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+        <div class="phone-video">
+          <img src="https://img.youtube.com/vi/WTMtD6mg8vI/maxresdefault.jpg" alt="Client Work #2" />
+        </div>
+        <div class="phone-overlay">
+          <span class="overlay-tag">Client Work</span>
+          <p class="overlay-caption">Cinematic<br>Story Edit</p>
+        </div>
+      </div>
+      <div class="video-info">
+        <p class="video-title">Client Reel #2</p>
+        <p class="video-meta">YouTube Short · Client</p>
+      </div>
+    </a>
+
+    <a href="https://www.youtube.com/watch?v=MrmoGnBFsoM" target="_blank" rel="noopener" class="video-card" data-cat="reels youtube">
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="sound-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+        <div class="phone-video">
+          <img src="https://img.youtube.com/vi/MrmoGnBFsoM/maxresdefault.jpg" alt="Client Work #3" />
+        </div>
+        <div class="phone-overlay">
+          <span class="overlay-tag">Client Work</span>
+          <p class="overlay-caption">Narrative<br>Short Edit</p>
+        </div>
+      </div>
+      <div class="video-info">
+        <p class="video-title">Client Reel #3</p>
+        <p class="video-meta">YouTube Short · Client</p>
+      </div>
+    </a>
+
+    <a href="https://www.youtube.com/watch?v=IoAJfcWe-CM" target="_blank" rel="noopener" class="video-card" data-cat="reels youtube">
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="sound-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+        <div class="phone-video">
+          <img src="https://img.youtube.com/vi/IoAJfcWe-CM/maxresdefault.jpg" alt="Client Work #4" />
+        </div>
+        <div class="phone-overlay">
+          <span class="overlay-tag">Client Work</span>
+          <p class="overlay-caption">Storytelling<br>Reel Edit</p>
+        </div>
+      </div>
+      <div class="video-info">
+        <p class="video-title">Client Reel #4</p>
+        <p class="video-meta">YouTube Short · Client</p>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- <section id="posters">
+  <p class="section-label">03.5 — Poster Designs</p>
+  <h2 class="section-title">Posters That<br>Stop the Scroll</h2>
+  <div class="divider"></div>
+  <p class="section-subtitle" style="margin-bottom:48px;">Event posters, brand posters, and social creatives — designed to grab attention at a glance.</p>
+  <div class="design-grid" id="posterGrid">
+
+    <div class="design-card" onclick="openLightbox('posterGrid', 0)">
+      <img src="YOUR_POSTER_IMAGE_1" alt="Poster Design 1" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
+      <div class="design-placeholder" style="display:none;">
+        <div class="design-placeholder-icon">✦</div>
+        <p class="design-placeholder-text">Poster 1</p>
+      </div>
+      <div class="design-overlay">
+        <p class="design-overlay-label">Poster Design 1</p>
+        <p class="design-overlay-sub">Social Creative</p>
+      </div>
+      <div class="design-zoom"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg></div>
+    </div>
+
+    <div class="design-card" onclick="openLightbox('posterGrid', 1)">
+      <img src="YOUR_POSTER_IMAGE_2" alt="Poster Design 2" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
+      <div class="design-placeholder" style="display:none;">
+        <div class="design-placeholder-icon">✦</div>
+        <p class="design-placeholder-text">Poster 2</p>
+      </div>
+      <div class="design-overlay">
+        <p class="design-overlay-label">Poster Design 2</p>
+        <p class="design-overlay-sub">Event Poster</p>
+      </div>
+      <div class="design-zoom"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg></div>
+    </div>
+
+    <div class="design-card" onclick="openLightbox('posterGrid', 2)">
+      <img src="YOUR_POSTER_IMAGE_3" alt="Poster Design 3" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
+      <div class="design-placeholder" style="display:none;">
+        <div class="design-placeholder-icon">✦</div>
+        <p class="design-placeholder-text">Poster 3</p>
+      </div>
+      <div class="design-overlay">
+        <p class="design-overlay-label">Poster Design 3</p>
+        <p class="design-overlay-sub">Brand Poster</p>
+      </div>
+      <div class="design-zoom"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg></div>
+    </div>
+
+    <div class="design-card" onclick="openLightbox('posterGrid', 3)">
+      <img src="YOUR_POSTER_IMAGE_4" alt="Poster Design 4" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
+      <div class="design-placeholder" style="display:none;">
+        <div class="design-placeholder-icon">✦</div>
+        <p class="design-placeholder-text">Poster 4</p>
+      </div>
+      <div class="design-overlay">
+        <p class="design-overlay-label">Poster Design 4</p>
+        <p class="design-overlay-sub">Social Creative</p>
+      </div>
+      <div class="design-zoom"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg></div>
+    </div>
+
+  </div>
+</section> -->
+
+<!-- <section id="thumbnails">
+  <p class="section-label">03.6 — Thumbnail Designs</p>
+  <h2 class="section-title">Thumbnails That<br>Earn the Click</h2>
+  <div class="divider"></div>
+  <p class="section-subtitle" style="margin-bottom:48px;">YouTube thumbnails designed for maximum CTR — bold hierarchy, clear contrast, face-forward compositions.</p>
+  <div class="design-grid" id="thumbGrid">
+
+    <div class="design-card" onclick="openLightbox('thumbGrid', 0)">
+      <img src="YOUR_THUMBNAIL_IMAGE_1" alt="Thumbnail Design 1" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
+      <div class="design-placeholder" style="display:none;">
+        <div class="design-placeholder-icon">◎</div>
+        <p class="design-placeholder-text">Thumbnail 1</p>
+      </div>
+      <div class="design-overlay">
+        <p class="design-overlay-label">Thumbnail 1</p>
+        <p class="design-overlay-sub">YouTube · Client</p>
+      </div>
+      <div class="design-zoom"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg></div>
+    </div>
+
+    <div class="design-card" onclick="openLightbox('thumbGrid', 1)">
+      <img src="YOUR_THUMBNAIL_IMAGE_2" alt="Thumbnail Design 2" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
+      <div class="design-placeholder" style="display:none;">
+        <div class="design-placeholder-icon">◎</div>
+        <p class="design-placeholder-text">Thumbnail 2</p>
+      </div>
+      <div class="design-overlay">
+        <p class="design-overlay-label">Thumbnail 2</p>
+        <p class="design-overlay-sub">YouTube · Client</p>
+      </div>
+      <div class="design-zoom"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg></div>
+    </div>
+
+    <div class="design-card" onclick="openLightbox('thumbGrid', 2)">
+      <img src="YOUR_THUMBNAIL_IMAGE_3" alt="Thumbnail Design 3" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
+      <div class="design-placeholder" style="display:none;">
+        <div class="design-placeholder-icon">◎</div>
+        <p class="design-placeholder-text">Thumbnail 3</p>
+      </div>
+      <div class="design-overlay">
+        <p class="design-overlay-label">Thumbnail 3</p>
+        <p class="design-overlay-sub">YouTube · Stories With Selva</p>
+      </div>
+      <div class="design-zoom"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg></div>
+    </div>
+
+    <div class="design-card" onclick="openLightbox('thumbGrid', 3)">
+      <img src="YOUR_THUMBNAIL_IMAGE_4" alt="Thumbnail Design 4" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
+      <div class="design-placeholder" style="display:none;">
+        <div class="design-placeholder-icon">◎</div>
+        <p class="design-placeholder-text">Thumbnail 4</p>
+      </div>
+      <div class="design-overlay">
+        <p class="design-overlay-label">Thumbnail 4</p>
+        <p class="design-overlay-sub">YouTube · Stories With Selva</p>
+      </div>
+      <div class="design-zoom"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg></div>
+    </div>
+
+  </div>
+</section> -->
+
+<div class="lightbox" id="lightbox" onclick="closeLightboxOnBg(event)">
+  <div class="lightbox-inner">
+    <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+    <button class="lightbox-nav lightbox-prev" onclick="navLightbox(-1)">&#8592;</button>
+    <button class="lightbox-nav lightbox-next" onclick="navLightbox(1)">&#8594;</button>
+    <img id="lightboxImg" src="" alt=""/>
+    <p class="lightbox-caption" id="lightboxCaption"></p>
+  </div>
+</div>
+
+<section id="services">
+  <p class="section-label">04 — Services & Pricing</p>
+  <h2 class="section-title">Simple Pricing,<br>Global Rates</h2>
+  <div class="divider"></div>
+  <p class="section-subtitle">All packages include cinematic editing, storytelling structure, and captions in English & Tanglish. Open to local and international creators.</p>
+  <p class="services-note">* Prices are per video. Bulk discounts available for ongoing monthly partnerships.</p>
+  
+  <div class="services-grid">
+    
+    <div class="service-card featured">
+      <span class="featured-badge">Best Value</span>
+      <p class="service-format">Short Form</p>
+      <p class="service-name">Reels / Shorts — Bulk Pack</p>
+      <div class="price-container">
+        <p class="service-price"><sup>₹</sup>859 <span class="currency-sep">/</span> <span class="usd-price"><sup>$</sup>14</span></p>
+      </div>
+      <p class="service-period">Per video · Min 20 videos/month</p>
+      <ul class="service-features">
+        <li>Cinematic Reel or Short edit</li>
+        <li>Storytelling-first cut & hooks</li>
+        <li>All language captions</li>
+        <li>Sound design & music sync</li>
+        <li>20+ videos/month commitment</li>
+      </ul>
+      <span class="caption-badge">Captions: English + Tanglish</span>
+    </div>
+
+    <div class="service-card">
+      <p class="service-format">Short Form</p>
+      <p class="service-name">Reels / Shorts — Flexible</p>
+      <div class="price-container">
+        <p class="service-price"><sup>₹</sup>998 <span class="currency-sep">/</span> <span class="usd-price"><sup>$</sup>19</span></p>
+      </div>
+      <p class="service-period">Per video · Under 8 videos/month</p>
+      <ul class="service-features">
+        <li>Cinematic Reel or Short edit</li>
+        <li>Storytelling-first cut</li>
+        <li>All language captions</li>
+        <li>Sound design & music sync</li>
+        <li>Flexible, no min commitment</li>
+      </ul>
+      <span class="caption-badge">Captions: English + Tanglish</span>
+    </div>
+
+    <div class="service-card">
+      <p class="service-format">Long Form</p>
+      <p class="service-name">YouTube Video — 5 Minutes</p>
+      <div class="price-container">
+        <p class="service-price"><sup>₹</sup>2,895 <span class="currency-sep">/</span> <span class="usd-price"><sup>$</sup>38</span></p>
+      </div>
+      <p class="service-period">Per video · Up to 5 min runtime</p>
+      <ul class="service-features">
+        <li>Narrative-driven full edit</li>
+        <li>B-roll integration & pacing</li>
+        <li>All language captions</li>
+        <li>Background music & SFX</li>
+        <li>Click-worthy Thumbnail included</li>
+      </ul>
+      <span class="caption-badge">Captions: English + Tanglish</span>
+    </div>
+
+    <div class="service-card">
+      <p class="service-format">Long Form</p>
+      <p class="service-name">YouTube Video — 10 Minutes</p>
+      <div class="price-container">
+        <p class="service-price"><sup>₹</sup>3,299 <span class="currency-sep">/</span> <span class="usd-price"><sup>$</sup>52</span></p>
+      </div>
+      <p class="service-period">Per video · Up to 10 min runtime</p>
+      <ul class="service-features">
+        <li>Full cinematic long-form edit</li>
+        <li>B-roll + motion graphics</li>
+        <li>All language captions</li>
+        <li>Advanced background score & SFX</li>
+        <li>Click-worthy Thumbnail included</li>
+      </ul>
+      <span class="caption-badge">Captions: English + Tanglish</span>
+    </div>
+
+  </div>
+</section>
+
+<section id="testimonials">
+  <p class="section-label">05 — Testimonials</p>
+  <h2 class="section-title">What Clients<br>Say About Me</h2>
+  <div class="divider"></div>
+  <div class="testimonials-grid">
+    <div class="testi-card">
+      <span class="testi-quote">"</span>
+      <p class="testi-text">Selva's edits don't just look good — they feel like a story. Our Reels started getting way more saves and shares after we switched to his editing style.</p>
+      <div class="testi-author"><div class="testi-avatar">RV</div><div><p class="testi-name">Revathy V</p><p class="testi-role">Content Creator · Instagram</p></div></div>
+    </div>
+    <div class="testi-card">
+      <span class="testi-quote">"</span>
+      <p class="testi-text">Fast turnaround, clean edits, and he actually understands the Tamil audience. The Tanglish captions he adds hit differently — exactly the vibe we needed.</p>
+      <div class="testi-author"><div class="testi-avatar">KM</div><div><p class="testi-name">Karthik M</p><p class="testi-role">Business Coach · YouTube</p></div></div>
+    </div>
+    <div class="testi-card">
+      <span class="testi-quote">"</span>
+      <p class="testi-text">Delivered our 10-minute YouTube video before deadline. The thumbnail he made for us performed better than anything we'd run before. Highly recommend.</p>
+      <div class="testi-author"><div class="testi-avatar">AK</div><div><p class="testi-name">Arun K</p><p class="testi-role">Brand Founder · Chennai</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <p class="section-label">06 — Contact</p>
+  <h2 class="section-title">Ready to Start<br>Your Next Video?</h2>
+  <div class="divider"></div>
+  <div class="contact-grid">
+    <div>
+      <p class="section-subtitle" style="margin-bottom:40px;">Tell me your format, frequency, and goals — I'll tell you exactly how I can help. Responses within 24 hours.</p>
+      <div class="contact-item">
+        <div class="contact-icon">@</div>
+        <div>
+          <p class="contact-detail-label">Email</p>
+          <p class="contact-detail-value"><a href="mailto:storieswithselva11@gmail.com">storieswithselva11@gmail.com</a></p>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">ig</div>
+        <div>
+          <p class="contact-detail-label">Instagram</p>
+          <p class="contact-detail-value"><a href="https://www.instagram.com/storieswith.selva/" target="_blank" rel="noopener">@storieswith.selva</a></p>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">yt</div>
+        <div>
+          <p class="contact-detail-label">YouTube</p>
+          <p class="contact-detail-value"><a href="https://youtube.com/@storieswithselva" target="_blank" rel="noopener">Stories With Selva</a></p>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">in</div>
+        <div>
+          <p class="contact-detail-label">LinkedIn</p>
+          <p class="contact-detail-value"><a href="https://linkedin.com/in/selvavinayagam" target="_blank" rel="noopener">linkedin.com/in/selvavinayagam</a></p>
+        </div>
+      </div>
+    </div>
+    <div class="contact-form">
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Your Name</label><input class="form-input" type="text" placeholder="Karthik R"/></div>
+        <div class="form-group"><label class="form-label">Email</label><input class="form-input" type="email" placeholder="you@brand.com"/></div>
+      </div>
+      <div class="form-group"><label class="form-label">Format Needed</label><input class="form-input" type="text" placeholder="e.g. 20 Reels/month, 4 YouTube videos..."/></div>
+      <div class="form-group"><label class="form-label">Tell Me About Your Channel / Brand</label><textarea class="form-textarea" placeholder="What kind of content do you create? Who's your audience?"></textarea></div>
+      <button class="form-submit">Send Message →</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-logo">Selva Vinayagam</span>
+  <div class="footer-links">
+    <a href="#about">About</a><a href="#skills">Skills</a><a href="#tools">Tools</a>
+    <a href="#portfolio">Work</a><a href="#posters">Posters</a><a href="#thumbnails">Thumbnails</a><a href="#services">Pricing</a><a href="#contact">Contact</a>
+  </div>
+  <span class="footer-copy">© 2026 Selva Vinayagam</span>
+</footer>
+
+<script>
+  // Scroll progress bar
+  window.addEventListener('scroll', () => {
+    const scrolled = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+    document.getElementById('scrollLine').style.width = scrolled + '%';
+  });
+
+  // Lightbox
+  let lbImages = [];
+  let lbIndex = 0;
+
+  function openLightbox(gridId, index) {
+    const grid = document.getElementById(gridId);
+    const imgs = grid.querySelectorAll('.design-card img');
+    lbImages = Array.from(imgs).map(img => ({
+      src: img.src,
+      alt: img.alt
+    }));
+    lbIndex = index;
+    showLightboxImage();
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function showLightboxImage() {
+    const item = lbImages[lbIndex];
+    document.getElementById('lightboxImg').src = item.src;
+    document.getElementById('lightboxImg').alt = item.alt;
+    document.getElementById('lightboxCaption').textContent = item.alt + ' — ' + (lbIndex + 1) + ' / ' + lbImages.length;
+  }
+
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function closeLightboxOnBg(e) {
+    if (e.target === document.getElementById('lightbox')) closeLightbox();
+  }
+
+  function navLightbox(dir) {
+    lbIndex = (lbIndex + dir + lbImages.length) % lbImages.length;
+    showLightboxImage();
+  }
+
+  document.addEventListener('keydown', e => {
+    if (!document.getElementById('lightbox').classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') navLightbox(-1);
+    if (e.key === 'ArrowRight') navLightbox(1);
+  });
+
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const videoCards = document.querySelectorAll('.video-card[data-cat]');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      videoCards.forEach(card => {
+        const cats = card.dataset.cat.split(' ');
+        if (filter === 'all' || cats.includes(filter)) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    });
+  });
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxHS-7H_fDfNh3f-OjtcxiODuS5tXrpWMh8Hq_J5QwqghOIgVkeg5VcnuD545Su_gYY0A/exec";
+
+    document.querySelector('.form-submit')
+      .addEventListener('click', function(e) {
+        e.preventDefault();
+
+        const btn = this;
+        btn.textContent = 'Sending...';
+        btn.disabled = true;
+
+        const data = {
+          name:    document.querySelector('input[placeholder="Karthik R"]').value,
+          email:   document.querySelector('input[type="email"]').value,
+          format:  document.querySelectorAll('.form-input')[2].value,
+          message: document.querySelector('.form-textarea').value
+        };
+
+        fetch(SCRIPT_URL, {
+          method: 'POST',
+          body: JSON.stringify(data)
+        })
+        .then(() => {
+          btn.textContent = 'Message Sent ✓';
+          btn.style.background = '#34908B';
+        })
+        .catch(() => {
+          btn.textContent = 'Try again';
+          btn.disabled = false;
+        });
+      });
+      </script>
+</body>
+</html>
